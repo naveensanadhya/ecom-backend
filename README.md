@@ -1,4 +1,4 @@
-# Backend Project (ecom-frontend)
+# Backend Project (ecom-backend)
 
 This is a Ecommerce backend project built with Node.js, Express, and MongoDB.
 
