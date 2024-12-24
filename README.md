@@ -13,7 +13,7 @@ Make sure you have the following installed on your system:
 
 1. Clone the repository:
 
-   git clone [<repository-url>](https://github.com/naveensanadhya/ecom-backend.git)
+   git clone https://github.com/naveensanadhya/ecom-backend.git
 
 2. Navigate to the project directory:
 
@@ -29,9 +29,9 @@ Make sure you have the following installed on your system:
 
 5. Fill in the .env file with your specific configuration:
 
-   PORT=your-port
-   MONGODB_CONNECTION_STRING=your-mongodb-connection-string
-   JWT_SECRET=your-jwt-secret
+   -PORT=your-port
+   -MONGODB_CONNECTION_STRING=your-mongodb-connection-string
+   -JWT_SECRET=your-jwt-secret
 
 ## Running the Application
 
