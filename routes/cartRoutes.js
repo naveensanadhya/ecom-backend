@@ -1,16 +1,17 @@
 import express from "express";
-import { protect } from "../middlewares/authenticationMiddleware.js";
 import {
   addToCart,
-  clearCart,
+  checkoutCart,
   getCart,
   getCartCount,
   removeFromCart,
+  updateQuantity,
 } from "../controllers/cartController.js";
 import { validateRequest } from "../middlewares/validate.js";
 import {
   addToCartSchema,
   removeFromCartSchema,
+  updateCartSchema,
 } from "../validators/cartValidator.js";
 
 const router = express.Router();
@@ -18,6 +19,7 @@ router.post("/add", validateRequest(addToCartSchema), addToCart);
 router.post("/remove", validateRequest(removeFromCartSchema), removeFromCart);
 router.get("/", getCart);
 router.get("/count", getCartCount);
-router.post("/clear", protect, clearCart);
+router.put("/items", validateRequest(updateCartSchema), updateQuantity);
+router.post("/checkout", checkoutCart);
 
 export default router;

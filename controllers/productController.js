@@ -1,6 +1,4 @@
-import mongoose from "mongoose";
 import Product from "../models/productModel.js";
-import { broadcastStockUpdate } from "../utils/socketUtils.js";
 
 export const createProduct = async (request, response, next) => {
   try {
@@ -56,36 +54,6 @@ export const getAllProducts = async (request, response, next) => {
       .status(200)
       .json({ message: "Products List Get Successfully", data: { products } });
   } catch (exception) {
-    next(exception);
-  }
-};
-
-export const checkoutCart = async (request, response, next) => {
-  const cartItems = request.body.cartItems;
-  const session = mongoose.startSession();
-  (await session).startTransaction();
-
-  try {
-    for (const item of cartItems) {
-      const product = await Product.findById(item.productId).session(session);
-
-      if (!product || product.stock < item.quantity) {
-        (await session).abortTransaction();
-        (await session).endSession();
-        return response
-          .status(400)
-          .json({ message: `Insufficient Stock of ${item.productId}` });
-      }
-      product.quantity -= item.quantity;
-      await product.save({ session });
-      broadcastStockUpdate(item.productId, product.stock);
-    }
-    (await session).commitTransaction();
-    session.endSession();
-    response.status(200).json({ message: "Checkout Successful" });
-  } catch (exception) {
-    (await session).abortTransaction();
-    session.endSession();
     next(exception);
   }
 };
